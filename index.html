@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>90 Days with Sine</title>
+  <meta name="description" content="บันทึก 90 วันของเบสกับทราย 18 สิงหาคม – 28 กันยายน 2026">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,520;1,9..144,480&family=Noto+Serif+Thai:wght@500;600&family=Sarabun:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f6f1e8;
+      --paper-deep: #efe6d8;
+      --card: #fffdf8;
+      --ink: #2c261f;
+      --ink-soft: #5e554b;
+      --muted: #8d8173;
+      --line: #e3d6c4;
+      --gold: #c5922a;
+      --gold-deep: #8d6414;
+      --gold-soft: #f8efd8;
+      --shadow: 0 18px 50px rgba(90, 62, 24, 0.06);
+      --serif: "Noto Serif Thai", "Fraunces", serif;
+      --sans: "Sarabun", "Noto Serif Thai", sans-serif;
+      --display: "Fraunces", "Noto Serif Thai", serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(900px 420px at 50% -8%, #fffaf1 0%, transparent 62%),
+        linear-gradient(180deg, #fbf7f1 0%, var(--paper) 22%, #f1e7d8 100%);
+      font-family: var(--sans);
+      font-size: 1.0625rem;
+      line-height: 1.85;
+      font-weight: 400;
+      text-rendering: optimizeLegibility;
+    }
+
+    ::selection {
+      background: #f3e0b0;
+      color: #241e17;
+    }
+
+    .progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #e7c56a, var(--gold));
+      transform: scaleX(0);
+      transform-origin: 0 50%;
+      z-index: 20;
+    }
+
+    .wrap {
+      width: min(42rem, calc(100% - 2.4rem));
+      margin: 0 auto;
+    }
+
+    .cover {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 4.5rem 0 3.5rem;
+      position: relative;
+    }
+
+    .cover .wrap {
+      text-align: center;
+    }
+
+    .mark {
+      width: 92px;
+      height: 92px;
+      margin: 0 auto 1.6rem;
+    }
+
+    .eyebrow {
+      margin: 0 0 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      color: var(--gold-deep);
+      font-weight: 600;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: var(--display);
+      font-weight: 520;
+      font-size: clamp(3.1rem, 9vw, 5.4rem);
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      color: #241e17;
+    }
+
+    h1 em {
+      font-style: italic;
+      font-weight: 480;
+      color: var(--gold-deep);
+    }
+
+    .cover p.lede {
+      margin: 1.4rem auto 0;
+      max-width: 28rem;
+      color: var(--ink-soft);
+      font-size: 1.12rem;
+    }
+
+    .span {
+      margin: 2.2rem auto 0;
+      display: flex;
+      gap: 0.8rem;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .span::before,
+    .span::after {
+      content: "";
+      width: 2.4rem;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 1.8rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--muted);
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+    }
+
+    .journal {
+      padding-bottom: 5rem;
+    }
+
+    .entry {
+      display: grid;
+      grid-template-columns: 1.1rem 1fr;
+      column-gap: 1.35rem;
+      padding-bottom: 0.4rem;
+    }
+
+    .rail {
+      position: relative;
+    }
+
+    .rail::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 0.35rem;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(var(--line), var(--line));
+      transform: translateX(-50%);
+    }
+
+    .entry:last-child .rail::before {
+      display: none;
+    }
+
+    .dot {
+      width: 0.7rem;
+      height: 0.7rem;
+      margin: 1.65rem auto 0;
+      border-radius: 50%;
+      background: #fffdf8;
+      border: 2px solid var(--gold);
+      box-shadow: 0 0 0 4px var(--paper);
+      position: relative;
+      z-index: 1;
+    }
+
+    .entry--close .dot {
+      background: var(--gold);
+      box-shadow: 0 0 0 6px var(--gold-soft);
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid rgba(227, 214, 196, 0.95);
+      border-radius: 1.5rem;
+      padding: 1.25rem 1.3rem 1.3rem;
+      margin-bottom: 1.35rem;
+      box-shadow: 0 1px 0 rgba(255, 253, 248, 0.9) inset, var(--shadow);
+    }
+
+    .entry--note .card {
+      background: transparent;
+      border-style: dashed;
+      box-shadow: none;
+    }
+
+    .entry--close .card {
+      background: linear-gradient(180deg, #fff8ec 0%, #fffdf8 28%);
+      border-color: #e6d0a4;
+      padding-bottom: 1.9rem;
+    }
+
+    .entry--close .card > p:first-of-type {
+      font-family: var(--serif);
+      font-size: 1.28rem;
+      line-height: 1.65;
+      margin-bottom: 1.15rem;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.55rem 0.75rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.85rem;
+      border-bottom: 1px solid rgba(227, 214, 196, 0.85);
+    }
+
+    time {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: 1.12rem;
+      letter-spacing: -0.01em;
+    }
+
+    .day {
+      color: var(--gold-deep);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      background: var(--gold-soft);
+      border-radius: 999px;
+      padding: 0.12rem 0.55rem;
+    }
+
+    .photos {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.65rem;
+      margin-top: 1.2rem;
+    }
+
+    .photos.two,
+    .photos.three {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .photos.three a:first-child {
+      grid-column: 1 / -1;
+    }
+
+    .photos a {
+      display: block;
+      overflow: hidden;
+      border-radius: 1.05rem;
+      background: var(--paper-deep);
+    }
+
+    .photos a:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+    }
+
+    .photos img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 1.05rem;
+    }
+
+    .photos.two img,
+    .photos.three img {
+      aspect-ratio: 4 / 3;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .photos.three a:first-child img {
+      aspect-ratio: 16 / 10;
+      object-position: center;
+    }
+
+    .photos a:hover img {
+      transform: scale(1.025);
+    }
+
+    .photos img {
+      transition: transform 0.35s ease;
+    }
+
+    .card p {
+      margin: 0 0 0.8rem;
+      text-wrap: pretty;
+    }
+
+    .card p:last-child {
+      margin-bottom: 0;
+    }
+
+    strong {
+      font-weight: 600;
+      color: #1f1a14;
+    }
+
+    blockquote {
+      margin: 1.15rem 0 1.2rem;
+      padding: 0.35rem 0 0.35rem 1rem;
+      background: linear-gradient(90deg, rgba(248, 239, 216, 0.85), transparent 88%);
+      border-radius: 0 0.75rem 0.75rem 0;
+      border-left: 2px solid var(--gold);
+      color: #3a3126;
+    }
+
+    blockquote p {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      line-height: 1.75;
+    }
+
+    blockquote p+p {
+      margin-top: 0.25rem;
+    }
+
+    .wish {
+      margin-top: 1.3rem !important;
+      font-family: var(--serif);
+      font-size: 1.35rem;
+      line-height: 1.6;
+      color: var(--gold-deep);
+    }
+
+    .closing-line {
+      margin-top: 1.4rem !important;
+      padding-top: 1.15rem;
+      border-top: 1px solid var(--line);
+      font-family: var(--serif);
+      font-size: 1.22rem;
+      line-height: 1.7;
+    }
+
+    footer {
+      padding: 0.5rem 0 3.5rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    @media (max-width: 640px) {
+      .photos.two,
+      .photos.three {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .card {
+        border-radius: 1.2rem;
+        padding: 1.1rem 1.05rem 1.15rem;
+      }
+    }
+
+    @media (min-width: 720px) {
+      body {
+        font-size: 1.125rem;
+      }
+
+      .wrap {
+        width: min(44rem, calc(100% - 4rem));
+      }
+
+      .card {
+        padding: 1.7rem 1.85rem 1.55rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .photos img {
+        transition: none;
+      }
+    }
+
+    @media print {
+
+      .progress,
+      .scroll-hint {
+        display: none;
+      }
+
+      body {
+        background: white;
+      }
+
+      .cover {
+        min-height: auto;
+        padding-top: 1rem;
+      }
+
+      .card {
+        box-shadow: none;
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="progress" aria-hidden="true"></div>
+
+  <header class="cover">
+    <div class="wrap">
+      <svg class="mark" viewBox="0 0 92 92" aria-hidden="true">
+        <circle cx="46" cy="46" r="44" fill="#f8efd8" />
+        <g fill="#e2b043">
+          <ellipse cx="46" cy="16" rx="7" ry="14" />
+          <ellipse cx="46" cy="76" rx="7" ry="14" />
+          <ellipse cx="16" cy="46" rx="14" ry="7" />
+          <ellipse cx="76" cy="46" rx="14" ry="7" />
+          <ellipse cx="24.5" cy="24.5" rx="7" ry="14" transform="rotate(-45 24.5 24.5)" />
+          <ellipse cx="67.5" cy="24.5" rx="7" ry="14" transform="rotate(45 67.5 24.5)" />
+          <ellipse cx="24.5" cy="67.5" rx="7" ry="14" transform="rotate(45 24.5 67.5)" />
+          <ellipse cx="67.5" cy="67.5" rx="7" ry="14" transform="rotate(-45 67.5 67.5)" />
+        </g>
+        <circle cx="46" cy="46" r="12" fill="#8d6414" />
+        <circle cx="46" cy="46" r="6" fill="#c9842a" />
+      </svg>
+      <p class="eyebrow">บันทึกของเบส</p>
+      <h1>90 Days<br>with <em>Sine</em></h1>
+      <p class="lede">เรื่องเล็ก ๆ ที่ค่อย ๆ กลายเป็นความทรงจำ ตั้งแต่วันแรกที่ทัก จนถึงวันที่ 90</p>
+      <p class="span">18 สิงหาคม — 28 กันยายน 2026</p>
+      <p class="scroll-hint">เลื่อนลงเพื่ออ่าน</p>
+    </div>
+  </header>
+
+  <main class="journal wrap">
+
+    <article class="entry">
+      <div class="rail">
+        <div class="dot"></div>
+      </div>
+      <div class="card">
+        <div class="meta">
+          <span class="day">Day 1</span>
+          <time datetime="2026-08-18">18 สิงหาคม 2026</time>
+        </div>
+        <p>วันนี้เบสเริ่มคุยกับทรายเป็นครั้งแรกจาก Facebook</p>
+        <p>ตอนนั้นเบสยังไม่รู้เลยว่าเรื่องราวนี้จะไปถึงไหน ทักไปแบบไม่ได้คิดอะไร แค่รู้สึกว่า
+          <strong>“ผู้หญิงคนนี้น่าสนใจดีแฮะ”</strong>
+        </p>
+        <p>ไม่รู้เลยว่าการทักไปวันนั้น จะกลายเป็นจุดเริ่มต้นของเรื่องราวมากมายขนาดนี้</p>
+      </div>
+    </article>
+
+    <article class="entry">
+      <div class="rail">
+        <div class="dot"></div>
+      </div>
+      <div class="card">
+        <div class="meta">
+          <span class="day">Day 4</span>
+          <time datetime="2026-08-21">21 สิงหาคม 2026</time>
+        </div>
+        <p>วันนี้เป็นจุดเปลี่ยนเล็ก ๆ</p>
+        <p>เบสชวนทรายออกไปกินข้าวครั้งแรก แต่ทรายเลิกเร็วกว่าที่คิด ส่วนเบสก็ติดธุระ กว่าจะได้เจอกันก็ใช้เวลานิดหน่อย
+        </p>
+        <p>สุดท้ายเราได้ไปกินลุงหยิกด้วยกัน แล้วต่อด้วยบัวลอย</p>
+        <p>วันนั้นเบสประทับใจมาก ได้คุยกันหลายเรื่อง และยิ่งคุยก็ยิ่งรู้สึกว่า ทรายเป็นคนที่เข้าใจวิธีคิดของเบสได้ดีมาก
+        </p>
+        <p>มันเป็นจุดเริ่มต้นเล็ก ๆ ในหัวใจเบส</p>
+        <p>ตอนนั้นเบสเริ่มคิดว่า</p>
+        <p><strong>“คนนี้แหละมั้ง ที่เบสอยากลองรู้จักให้มากกว่านี้”</strong></p>
+        <p>แต่เรื่องของเราก็ไม่ได้ง่ายขนาดนั้น</p>
+        <p>หลังจากนั้นมีช่วงหนึ่งที่ทรายหายไป ไม่ได้หายไปเลยซะทีเดียว แต่เราคุยกันน้อยลงมาก เบสพยายามอยู่พักหนึ่ง
+          จนไม่รู้เหมือนกันว่าเรื่องของเราจะเดินต่อหรือเปล่า</p>
+        <p>เบสเลยถามทรายตรง ๆ</p>
+        <p>ทรายบอกว่า ทรายเป็นแบบนี้ปกติ บางช่วงไม่ค่อยอยากคุยกับใคร</p>
+        <p>ตอนนั้นเบสยังไม่เข้าใจว่าทรายกำลังสื่ออะไร ถึงขั้นถามไปว่า</p>
+        <p><strong>“อยากให้เบสหายไปไหม”</strong></p>
+        <p>ในใจตอนนั้นเหมือนเบสกำลังยอมแพ้แล้ว</p>
+        <p>แต่ทรายบอกว่า <strong>ไม่ใช่แบบนั้น</strong></p>
+        <p>และหลังจากวันนั้น เรื่องของเราก็ค่อย ๆ เปลี่ยนไป</p>
+      </div>
+    </article>
+
+    <article class="entry">
+      <div class="rail">
+        <div class="dot"></div>
+      </div>
+      <div class="card">
+        <div class="meta">
+          <span class="day">Day 15</span>
+          <time datetime="2026-09-01">1 กันยายน 2026</time>
+        </div>
+        <p>หลังจากหายไปพักหนึ่ง ทรายกลับมา และเป็นฝ่ายชวนเบสไปกินชาบู</p>
+        <p>เพราะทรายเห็นว่าเบสกำลังเครียด ๆ และดูเคว้ง ๆ</p>
+        <p>เบสยังจำประโยคที่ทรายชวนได้อยู่เลย</p>
+        <blockquote>
+          <p><strong>“พรุ่งนี้ไปหาอะไรกินไหม เผื่อได้ระบายให้ฟัง”</strong></p>
+        </blockquote>
+        <p>ตอนนั้นเบสเริ่มรู้สึกว่า ทรายไม่ได้แค่ชวนเบสไปกินข้าว</p>
+        <p>แต่ทราย <strong>สังเกตเห็นว่าเบสไม่โอเค</strong></p>
+        <p>แค่นั้นก็ทำให้รู้สึกดีแล้ว</p>
+      </div>
+    </article>
+
+    <article class="entry">
+      <div class="rail">
+        <div class="dot"></div>
+      </div>
+      <div class="card">
+        <div class="meta">
+          <span class="day">Day 16</span>
+          <time datetime="2026-09-02">2 กันยายน 2026</time>
+        </div>
+        <p>วันนี้เบสพาทรายไปร้านเช่าหนังสือ แล้วไปกินชาบูด้วยกัน</p>
+        <p>เราได้ใช้เวลาด้วยกันแบบจริง ๆ ได้คุย แลกเปลี่ยนเรื่องต่าง ๆ กันเยอะขึ้น</p>
+        <p>ยิ่งคุย เบสก็ยิ่งรู้สึกชัดขึ้นเรื่อย ๆ ว่า</p>
+        <p><strong>ทรายเข้าใจเบสจริง ๆ</strong></p>
+        <div class="photos two">
+          <a href="images/LINE_ALBUM_Focus%20in%20love_260928_27.jpg"><img src="images/LINE_ALBUM_Focus%20in%20love_260928_27.jpg" alt="ทรายนั่งกินชาบู"></a>
+          <a href="images/LINE_ALBUM_Focus%20in%20love_260928_36.jpg"><img src="images/LINE_ALBUM_Focus%20in%20love_260928_36.jpg" alt="ทรายอุ้มลูกแมวสีเทา"></a>
+        </div>
+      </div>
+    </article>
+
+    <article class="entry">
+      <div class="rail">
+        <div class="dot"></div>
+      </div>
+      <div class="card">
+        <div class="meta">
+          <span class="day">Day 17</span>
+          <time datetime="2026-09-03">3 กันยายน 2026</time>
+        </div>
+        <p>วันนี้ทรายมาเล่นที่บ้าน</p>
+        <p>นั่งคุยกันไปสักพัก ทรายบอกว่าไม่อยากจับมือถือ เราเลยเล่นเกมเศรษฐีด้วยกัน</p>
+        <p>พอเล่นเสร็จก็ออกไป Robinson ด้วยกัน และได้รูปคู่รูปแรก</p>
+        <p>เป็นรูปธรรมดา ๆ รูปหนึ่ง แต่สำหรับเบส มันเป็นอีกหนึ่งรูปที่จำได้ดี</p>
+        <p>เพราะช่วงนั้นเบสเริ่มรู้สึกว่า <strong>เวลาอยู่กับทราย มันเป็นธรรมชาติมากขึ้นเรื่อย ๆ</strong></p>
+        <div class="photos three">
+          <a href="images/LINE_ALBUM_Focus%20in%20love_260928_42.jpg"><img src="images/LINE_ALBUM_Focus%20in%20love_260928_42.jpg" alt="ทรายนั่งเล่นเกมเศรษฐีที่บ้าน"></a>
+          <a href="images/LINE_ALBUM_Focus%20in%20love_260928_47.jpg"><img src="images/LINE_ALBUM_Focus%20in%20love_260928_47.jpg" alt="รูปคู่ของเบสกับทรายที่ห้าง"></a>
+          <a href="images/LINE_ALBUM_Focus%20in%20love_260928_44.jpg"><img src="images/LINE_ALBUM_Focus%20in%20love_260928_44.jpg" alt="ของหวานที่กินด้วยกัน"></a>
+        </div>
+      </div>
+    </article>
+
+    <article class="entry entry--note">
+      <div class="rail">
+        <div class="dot"></div>
+      </div>
+      <div class="card">
+        <div class="meta">
+          <span class="day">ต้นเดือน</span>
+          <time>ช่วงต้นเดือนกันยายน</time>
+        </div>
+        <p>ช่วงนี้เบสเริ่มรู้จักทรายมากขึ้น</p>
+        <p>เริ่มเห็นว่าทรายเป็นคนที่มีโลกของตัวเอง มีความคิดของตัวเอง และไม่ได้ต้องการให้ชีวิตหมุนรอบความสัมพันธ์ทั้งหมด
+        </p>
+        <p>เบสเคยคิดมาตลอดว่า อยากเจอคนที่เข้าใจวิธีคิดของเบส เข้าใจงาน ความฝัน และสิ่งที่เบสกำลังสร้าง</p>
+        <p>และช่วงนี้เบสเริ่มรู้สึกว่า</p>
+        <p><strong>ทรายอาจเป็นคนแบบนั้น</strong></p>
+      </div>
+    </article>
+
+    <article class="entry">
+      <div class="rail">
+        <div class="dot"></div>
+      </div>
+      <div class="card">
+        <div class="meta">
+          <span class="day">Day 18</span>
+          <time datetime="2026-09-04">4 กันยายน 2026</time>
+        </div>
+        <p>วันนั้นเบสสังเกตว่าทรายสนใจ Harry Potter มาก</p>
+        <p>โดยเฉพาะตอนอยู่ร้านหนังสือ ตาทรายเป็นประกายมากเลย 5555</p>
+        <p>เบสเลยซื้อ Harry Potter Box Set ไว้ให้ เพราะจำได้ว่าทรายชอบ</p>
+        <p>เบสชอบความรู้สึกเวลาที่จำเรื่องเล็ก ๆ ของใครสักคนได้ แล้วได้ทำอะไรเล็ก ๆ ให้เขาดีใจ</p>
+      </div>
+    </article>
+
+    <article class="entry">
+      <div class="rail">
+        <div class="dot"></div>
+      </div>
+      <div class="card">
+        <div class="meta">
+          <span class="day">Day 21</span>
+          <time datetime="2026-09-07">7 กันยายน 2026</time>
+        </div>
+        <p>วันนี้เบสเซอร์ไพรส์ทรายด้วย Harry Potter Box Set 7 เล่มแบบจุก ๆ 😂</p>
+        <p>เสียดายที่เบสลืมถ่ายคลิปไว้</p>
+        <p>แต่ภาพทรายตอนเห็นหนังสือ ตาเป็นประกายแล้วกระโดดโลดเต้น ยังจำได้อยู่เลย</p>
+        <p>เบสไม่เคยเห็นทรายเวอร์ชันนี้มาก่อน</p>
+        <p>ตอนนั้นคิดในใจว่า</p>
+        <p><strong>“เออ…มีความสุขก็ดีแล้ว”</strong></p>
+        <p>ช่วงนี้ทรายเริ่มมาหาเบสบ่อยขึ้น</p>
+        <p>เราใช้เวลาอยู่ด้วยกันแบบธรรมดามากขึ้น เล่นกับแมว ดูการ์ตูน ทำเอกสารงานด้วยกัน</p>
+        <p>มันเริ่มไม่เหมือนการออกเดตแล้ว แต่เหมือนเราสองคนกำลังค่อย ๆ เอากันเข้ามาอยู่ในชีวิตประจำวัน</p>
+        <div class="photos">
+          <a href="images/LINE_ALBUM_Focus%20in%20love_260928_24.jpg"><img src="images/LINE_ALBUM_Focus%20in%20love_260928_24.jpg" alt="ทรายนั่งกอดแมว"></a>
+        </div>
+      </div>
+    </article>
+
+    <article class="entry">
+      <div class="rail">
+        <div class="dot"></div>
+      </div>
+      <div class="card">
+        <div class="meta">
+          <span class="day">Day 22–23</span>
+          <time datetime="2026-09-08">8–9 กันยายน 2026</time>
+        </div>
+        <p>มีวันที่ฝนตกหนัก แต่ทรายก็ยังมา</p>
+        <p>เบสเตรียมผลไม้ไว้รอ แล้วออกไปรับทรายพร้อมร่ม</p>
+        <p>แต่พอกลับเข้าบ้าน… ทรายดันเข้ามาถึงก่อนแล้ว 5555 พร้อม Harry Potter ในมืออีกต่างหาก</p>
+        <p>เรากินผลไม้ กินข้าว ดูการ์ตูนด้วยกัน แล้วทรายก็เอางานเอกสารมาทำ</p>
+        <p>เราช่วยกันทำงานจนประมาณสองทุ่ม</p>
+        <p>ช่วงนี้เบสเริ่มรู้สึกสบายใจมาก ๆ เวลาอยู่กับทราย</p>
+        <p>ไม่ต้องคอยระแวง ไม่ต้องคิดเยอะ ไม่ต้องพยายามทำให้ทุกอย่างพิเศษ</p>
+        <p>แค่ได้อยู่ด้วยกันธรรมดา ๆ ก็มีความสุขแล้ว</p>
+      </div>
+    </article>
+
+    <article class="entry">
+      <div class="rail">
+        <div class="dot"></div>
+      </div>
+      <div class="card">
+        <div class="meta">
+          <span class="day">Day 24</span>
+          <time datetime="2026-09-10">10 กันยายน 2026</time>
+        </div>
+        <p>วันนี้เบสพาทรายไปกินข้าวร้านโปรดปราณ แล้วพาไปเจอเจ้กิ๊ฟกับเฮียปักด้วย</p>
+        <p>สั่งอาหารเสร็จ ลูกค้าโทรมารับแมวพอดี เบสเลยต้องรีบกลับ</p>
+        <p>ปล่อยทรายโดนเจ้กับเฮียสัมภาษณ์ไป 5555</p>
+        <p>วันนี้เราคุยกันหลายเรื่องมาก</p>
+        <p>แต่ประโยคที่ทำให้เบสดีใจที่สุดคือทรายบอกว่า</p>
+        <blockquote>
+          <p><strong>“คุยกับเบสแล้วนึกถึงคำว่า เราเลือกรักดี ๆ ก็ได้นี่หว่า”</strong></p>
+        </blockquote>
+        <p>เบสจำประโยคนี้ได้ดีเลย</p>
+        <p>แล้วก็มีโมเมนต์เล็ก ๆ ตอนเบสเรียกตัวเองว่า <strong>“แฟนสวย”</strong></p>
+        <p>ทรายก็ทำท่าประมาณว่า <strong>“ฉันนี่ไง”</strong> 5555</p>
+        <p>ตอนคุยเรื่องลดน้ำหนัก เบสแซวว่าจะลดให้สาว ๆ เสียดายเล่น</p>
+        <p>ทรายก็บอกว่าจะลดด้วย</p>
+        <blockquote>
+          <p><strong>“ไว้ให้หนุ่ม ๆ เสียดายเล่นเวลาไปกับเบส”</strong></p>
+        </blockquote>
+        <p>วันนี้ไม่มีอะไรใหญ่โตเลย</p>
+        <p>แต่เบสกลับรู้สึกว่า ทรายเข้ามาอยู่ในชีวิตเบสมากขึ้นเรื่อย ๆ ทั้งในชีวิตประจำวัน ในเรื่องงาน
+          และในโลกของคนรอบตัวเบส</p>
+        <p>วันนี้เบสคิดว่า</p>
+        <p><strong>“อยากรู้จักผู้หญิงคนนี้ไปเรื่อย ๆ ว่ะ”</strong> 🌻</p>
+      </div>
+    </article>
+
+    <article class="entry">
+      <div class="rail">
+        <div class="dot"></div>
+      </div>
+      <div class="card">
+        <div class="meta">
+          <span class="day">Day 25</span>
+          <time datetime="2026-09-11">11 กันยายน 2026</time>
+        </div>
+        <p>วันนี้ทรายก็มาอีกแล้ว</p>
+        <p>เป็นเย็นวันศุกร์ที่แฮปปี้มาก</p>
+        <p>เบสปอกผลไม้ไว้รอเหมือนทุกวัน ทรายมาช้าหน่อยเพราะติดงานที่โรงเรียน</p>
+        <p>พอมาแล้วเราก็นั่งเล่น นั่งฟังเพลงด้วยกัน</p>
+        <p>แล้ววันนี้ก็มีอีกหนึ่งก้าวเล็ก ๆ ที่ทำให้เบสดีใจมาก</p>
+        <p><strong>เราได้จับมือกันแล้ว</strong></p>
+        <p>ก่อนหน้านี้เบสคิดอยู่หลายรอบว่า เมื่อไหร่เราจะจับมือกันได้ เวลาไปเดินห้างด้วยกันก็ยังไม่กล้า</p>
+        <p>แต่วันนี้มันเกิดขึ้นแบบธรรมชาติ</p>
+        <p>จากที่เคยนั่งอยู่ข้างกันเฉย ๆ วันนี้มือของเราได้จับกันแล้ว</p>
+        <p>เป็น Checkpoint เล็ก ๆ ที่ทำให้เบสรู้สึกว่า</p>
+        <p><strong>ความสัมพันธ์ของเรากำลังค่อย ๆ ขยับไปข้างหน้า</strong></p>
+      </div>
+    </article>
+
+    <article class="entry">
+      <div class="rail">
+        <div class="dot"></div>
+      </div>
+      <div class="card">
+        <div class="meta">
+          <span class="day">Day 26</span>
+          <time datetime="2026-09-12">12 กันยายน 2026</time>
+        </div>
+        <p>วันนี้ทรายมาทำงานที่บ้านตั้งแต่เที่ยง</p>
+        <p>อยู่ด้วยกันยาว ๆ จนเย็น แล้วทรายเป็นคนชวนเบสไปขับรถเล่นที่บุรีรัมย์</p>
+        <p>เราไปคาเฟ่ ไปดูรถบิ๊กไบค์ แล้วไปกินโบนัสสุกี้ด้วยกัน</p>
+        <p>ตอนขับรถกลับ มีโมเมนต์หนึ่งที่เบสชอบมาก</p>
+        <p><strong>เราจับมือกันตลอดทาง</strong></p>
+        <p>จากเมื่อวานที่เพิ่งจับมือกันครั้งแรก วันนี้กลับกลายเป็นเรื่องธรรมชาติไปแล้ว</p>
+        <p>เป็นเรื่องเล็ก ๆ แต่เบสมีความสุขมาก</p>
+        <p>รู้สึกว่าเราสองคนกำลังค่อย ๆ ขยับความสัมพันธ์ไปข้างหน้าทีละนิด</p>
+        <div class="photos three">
+          <a href="images/LINE_ALBUM_Focus%20in%20love_260928_18.jpg"><img src="images/LINE_ALBUM_Focus%20in%20love_260928_18.jpg" alt="ทรายดื่มชาที่คาเฟ่"></a>
+          <a href="images/LINE_ALBUM_Focus%20in%20love_260928_22.jpg"><img src="images/LINE_ALBUM_Focus%20in%20love_260928_22.jpg" alt="ทรายกับรถบิ๊กไบค์"></a>
+          <a href="images/LINE_ALBUM_Focus%20in%20love_260928_19.jpg"><img src="images/LINE_ALBUM_Focus%20in%20love_260928_19.jpg" alt="ของหวานที่คาเฟ่"></a>
+        </div>
+      </div>
+    </article>
+
+    <article class="entry">
+      <div class="rail">
+        <div class="dot"></div>
+      </div>
+      <div class="card">
+        <div class="meta">
+          <span class="day">Day 27</span>
+          <time datetime="2026-09-13">13 กันยายน 2026</time>
+        </div>
+        <p>วันนี้เป็นวันอาทิตย์ธรรมดาวันหนึ่ง</p>
+        <p>ทรายไม่ได้มาหา ต่างคนต่างทำงานอยู่บ้าน</p>
+        <p>ระหว่างวันเบสโทรหาทรายบ้าง ทรายก็รับทุกครั้ง</p>
+        <p>เราไม่ได้พยายามชวนคุยตลอด แค่เปิดสายไว้เหมือนนั่งทำงานอยู่ข้าง ๆ กัน</p>
+        <p>ทรายทำงานของทราย เบสก็ทำงานของเบส</p>
+        <p>แทบไม่ได้พูดอะไรกันมาก</p>
+        <p>แปลกดีเหมือนกัน</p>
+        <p>เมื่อก่อนเบสคิดว่าการคุยกันตลอดถึงจะรู้สึกใกล้กัน</p>
+        <p>แต่วันนี้กลับรู้สึกว่า</p>
+        <blockquote>
+          <p><strong>“แค่รู้ว่าอีกคนยังอยู่ข้าง ๆ กัน ถึงไม่ได้คุยกันตลอด มันก็น่ารักและมีความสุขแล้ว”</strong></p>
+        </blockquote>
+        <div class="photos two">
+          <a href="images/LINE_ALBUM_Focus%20in%20love_260928_11.jpg"><img src="images/LINE_ALBUM_Focus%20in%20love_260928_11.jpg" alt="วิดีโอคอลระหว่างเบสกับทราย"></a>
+          <a href="images/LINE_ALBUM_Focus%20in%20love_260928_5.jpg"><img src="images/LINE_ALBUM_Focus%20in%20love_260928_5.jpg" alt="เปิดสายคุยกันไว้"></a>
+        </div>
+      </div>
+    </article>
+
+    <article class="entry">
+      <div class="rail">
+        <div class="dot"></div>
+      </div>
+      <div class="card">
+        <div class="meta">
+          <span class="day">Day 32</span>
+          <time datetime="2026-09-18">18 กันยายน 2026</time>
+        </div>
+        <p>วันนี้ทรายเหนื่อยมาก</p>
+        <p>เบสเลยแวะไปหาที่โรงเรียน เอาส้มโอและชาไทยหวานน้อยไปฝาก อยากให้ทรายมีอะไรไว้กินตอนพัก</p>
+        <p>ถึงโรงเรียนจะอยู่ไกลประมาณ 30 นาที 😂</p>
+        <p>ที่ฮาคือ Google Maps พาเบสเกือบเข้าทุ่งนา กว่าจะไปถึงได้ 5555</p>
+        <p>ตอนกลางคืนทรายไปเที่ยวกับเพื่อน แล้วเล่าให้ฟังว่าเพื่อนเพิ่งอกหัก พร้อมมุกว่า</p>
+        <blockquote>
+          <p><strong>“เดี๋ยวปาแก้วใส่”</strong></p>
+        </blockquote>
+        <p>เป็นเรื่องขำ ๆ ของแก๊งคุณครูในคืนนั้น</p>
+        <p>วันนี้เราไม่ได้ใช้เวลาทั้งวันด้วยกัน แต่ก็ยังมีพื้นที่เล็ก ๆ ให้กันอยู่</p>
+        <p>ทั้งการแวะเอาของไปฝากตอนเที่ยง และการที่ตอนกลางคืนทรายยังเล่าเรื่องที่เจอมาให้เบสฟัง</p>
+      </div>
+    </article>
+
+    <article class="entry">
+      <div class="rail">
+        <div class="dot"></div>
+      </div>
+      <div class="card">
+        <div class="meta">
+          <span class="day">Day 35</span>
+          <time datetime="2026-09-21">21 กันยายน 2026</time>
+        </div>
+        <p>วันนี้เบสไปหาทรายที่โรงเรียน</p>
+        <p>ช่วงนี้เราไม่ค่อยได้คุยกัน เบสเลยรู้สึกคิดถึงและเป็นห่วง</p>
+        <p>เบสเอาดอกไม้ ขนม และเครื่องดื่มไปฝากทราย</p>
+        <p>ไม่ได้ตั้งใจจะกดดันอะไร แค่อยากให้ทรายรู้ว่า</p>
+        <p><strong>ถึงช่วงนี้เราจะไม่ได้คุยกันมาก แต่เบสยังอยู่ตรงนี้เหมือนเดิม</strong></p>
+        <p>บางครั้งเราไม่จำเป็นต้องทำอะไรยิ่งใหญ่</p>
+        <p>แค่ได้ทำอะไรเล็ก ๆ ให้คนที่เราคิดถึง เบสก็มีความสุขแล้ว 🌻</p>
+        <div class="photos">
+          <a href="images/LINE_ALBUM_Focus%20in%20love_260928_1.jpg"><img src="images/LINE_ALBUM_Focus%20in%20love_260928_1.jpg" alt="เบสกับทรายที่โรงเรียน"></a>
+        </div>
+      </div>
+    </article>
+
+    <article class="entry">
+      <div class="rail">
+        <div class="dot"></div>
+      </div>
+      <div class="card">
+        <div class="meta">
+          <span class="day">Day 36</span>
+          <time datetime="2026-09-22">22 กันยายน 2026</time>
+        </div>
+        <p>วันนี้เกิดเรื่องขำ ๆ</p>
+        <p>อยู่ ๆ Instagram ของเบสก็เหมือนจะบิน 😂</p>
+        <p>ทรายทักมาถามว่า</p>
+        <blockquote>
+          <p><strong>“บล็อกไอจีหรอ”</strong></p>
+          <p><strong>“หรือว่าบิน”</strong></p>
+          <p><strong>“นึกว่าบล็อกกันไปละ”</strong></p>
+        </blockquote>
+        <p>แค่เห็นว่าทรายสังเกตว่า Instagram ของเบสหายไป แล้วเข้ามาถาม เบสก็รู้สึกแปลก ๆ เหมือนกัน</p>
+        <p>เบสเลยตอบไปว่า</p>
+        <blockquote>
+          <p><strong>“ฉันจะบล็อกเธอทำไม”</strong></p>
+          <p><strong>“เบสรักทรายขนาดนี้ ไม่ไปไหนหรอก 5555”</strong></p>
+        </blockquote>
+        <p>วันนี้ไม่มีอะไรหวือหวาเลย</p>
+        <p>แต่เบสกลับรู้สึกว่า ถึงบางช่วงเราจะไม่ได้คุยกันมาก</p>
+        <p><strong>เราสองคนก็ยังรับรู้ถึงการมีอยู่ของกันและกันเสมอ</strong></p>
+      </div>
+    </article>
+
+    <article class="entry">
+      <div class="rail">
+        <div class="dot"></div>
+      </div>
+      <div class="card">
+        <div class="meta">
+          <span class="day">Day 37</span>
+          <time datetime="2026-09-23">23 กันยายน 2026</time>
+        </div>
+        <p>วันนี้คุยกันน้อยกว่าทุกวันที่ผ่านมา</p>
+        <p>เบสทักไปตอนเช้า ทรายตอบช้ากว่าปกติ แล้วก็สั้นมาก ไม่ได้หายไป แต่เหมือนคุยได้แค่เป็นประโยค</p>
+        <p>เบสบอกตัวเองว่าทรายคงเหนื่อยจากโรงเรียน บางวันคนเราก็ไม่ได้มีแรงจะพิมพ์ยาว ๆ</p>
+        <p>เบสเลยไม่ทักซ้ำ ไม่อยากให้การทักของเบสกลายเป็นอะไรที่ทรายต้องรับมือ</p>
+      </div>
+    </article>
+
+    <article class="entry">
+      <div class="rail">
+        <div class="dot"></div>
+      </div>
+      <div class="card">
+        <div class="meta">
+          <span class="day">Day 39</span>
+          <time datetime="2026-09-25">25 กันยายน 2026</time>
+        </div>
+        <p>วันนี้เบสเปิดแชทดูหลายรอบ</p>
+        <p>ข้อความล่าสุดยังเป็นของเบสเมื่อวาน ทรายอ่านแล้ว แต่ยังไม่ได้ตอบ</p>
+        <p>เบสไม่ได้โกรธ แค่เริ่มเงียบตามไปด้วย</p>
+        <p>ตอนแรกเบสคิดว่าการให้นิ่งไปสักพักก็ดี ทรายเคยบอกว่าบางช่วงไม่ค่อยอยากคุยกับใคร</p>
+        <p>แต่พอถึงเย็น เบสก็เริ่มถามตัวเอง</p>
+        <p><strong>“หรือว่าเบสกำลังคุยกับคนที่อยากให้เบสเบาลงแล้ว”</strong></p>
+        <p>เบสไม่ได้ส่งคำถามนั้นไป เก็บไว้กับตัวเองก่อน</p>
+      </div>
+    </article>
+
+    <article class="entry">
+      <div class="rail">
+        <div class="dot"></div>
+      </div>
+      <div class="card">
+        <div class="meta">
+          <span class="day">Day 41</span>
+          <time datetime="2026-09-27">27 กันยายน 2026</time>
+        </div>
+        <p>วันนี้แทบไม่ได้คุยกันเลย</p>
+        <p>เบสไม่ได้ทักก่อน ไม่ได้เพราะไม่อยากคุย แต่เพราะไม่รู้ว่าควรพูดอะไรที่ไม่ทำให้ทรายอึดอัด</p>
+        <p>ผลไม้ที่เคยปอกไว้รอ ก็ไม่ได้ปอก ไม่ใช่ไม่คิดถึง แค่ไม่รู้ว่าวันนี้ทรายจะมาไหม และเบสก็ไม่อยากคาดหวังให้เธอต้องมา</p>
+        <p>ทั้งวันเบสนั่งทำงานไปเรื่อย ๆ แล้วก็กลับมาเปิดแชทอีกครั้ง</p>
+        <p>ยังเหมือนเดิม</p>
+        <p>เบสเลยเขียนคำถามนี้ไว้ในบันทึก แทนที่จะส่งไปหาทราย</p>
+        <p><strong>“ถ้าเราเงียบขนาดนี้ เรื่องของเรายังเดินอยู่ไหม”</strong></p>
+        <p>เบสยังไม่มีคำตอบ และเบสก็ยังไม่อยากไปเร่งคำตอบจากทราย</p>
+        <p>แค่รู้ว่าตัวเองเริ่มไม่แน่ใจแล้ว</p>
+      </div>
+    </article>
+
+    <article class="entry entry--close">
+      <div class="rail">
+        <div class="dot"></div>
+      </div>
+      <div class="card">
+        <div class="meta">
+          <span class="day">Day 42</span>
+          <time datetime="2026-09-28">28 กันยายน 2026</time>
+        </div>
+        <p><strong>นี่อาจเป็นหน้าสุดท้ายของบันทึกเล่มนี้</strong></p>
+        <p>วันนี้ทรายมาหาเบสที่บ้าน</p>
+        <p>เรานั่งคุยกันและเคลียร์ใจกัน เพราะทั้งเบสและทรายไม่อยากให้สิ่งที่เกิดขึ้น กลายเป็นความเข้าใจผิด</p>
+        <p>ช่วงที่ผ่านมาเราเหนื่อยกันทั้งคู่</p>
+        <p>มีหลายอย่างที่ทำให้เรามาถึงจุดที่ต้องหยุดและทบทวนความสัมพันธ์ของเราอีกครั้ง</p>
+        <p>แต่วันนี้ อย่างน้อยเราก็ได้พูดสิ่งที่อยู่ในใจ และได้เข้าใจสิ่งที่อีกคนกำลังเจอมากขึ้น</p>
+        <p>เบสไม่รู้ว่าหลังจากวันนี้ เรื่องของเราจะเดินไปทางไหน</p>
+        <p>เลยอยากให้หน้านี้จบด้วยความรู้สึกดี ๆ</p>
+        <p>เพราะตลอดเวลาที่ผ่านมา ทรายไม่ได้เป็นแค่คนที่เบสกำลังทำความรู้จัก</p>
+        <p>ทรายกลายเป็นส่วนหนึ่งของเรื่องราวดี ๆ หลายเรื่องในชีวิตเบส</p>
+        <p>ตั้งแต่บัวลอยวันแรก Harry Potter 7 เล่ม ผลไม้ที่เบสปอกไว้รอ ฝนตกแล้วทรายยังมา การจับมือครั้งแรก
+          การขับรถไปบุรีรัมย์ รวมถึงเรื่องเล็ก ๆ ที่ตอนนั้นอาจดูธรรมดา แต่วันนี้กลับกลายเป็นความทรงจำที่เบสอยากเก็บไว้
+        </p>
+        <p>สักวันหนึ่ง เมื่อเราทั้งคู่พร้อมกว่านี้ ถ้าเส้นทางของเรายังมีที่ให้กัน</p>
+        <p><strong>เบสเชื่อว่าเราคงได้วนกลับมาเจอกันอีกครั้ง</strong></p>
+        <p>ไม่ว่าจะวันนั้นจะมาเมื่อไหร่ เบสก็ยังอยากเห็นทรายมีความสุข เติบโต และผ่านทุกเรื่องที่กำลังเจอไปให้ได้</p>
+        <p class="wish"><strong>สู้ ๆ นะทราย</strong></p>
+        <p>เบสจะคอยเป็นกำลังใจให้เสมอ ถึงต่อจากนี้เราอาจไม่ได้อยู่ข้าง ๆ กันเหมือนเดิมก็ตาม</p>
+        <p>ขอบคุณสำหรับทุกเรื่องราวตลอดช่วงเวลาที่ผ่านมา ขอบคุณที่ครั้งหนึ่งเคยเข้ามาเป็นเรื่องดี ๆ ในชีวิตเบส</p>
+        <p>และถ้าวันหนึ่งเราได้กลับมาเจอกันอีกครั้ง</p>
+        <p><strong>เบสหวังว่าตอนนั้น เราจะได้เจอกันในวันที่เราทั้งคู่พร้อมกว่าเดิม
+            พร้อมที่จะดูแลความสัมพันธ์ของเราให้ดีกว่าวันนี้</strong></p>
+        <p>แต่ไม่ว่าเรื่องราวของเราจะเป็นอย่างไรต่อไป</p>
+        <p class="closing-line">เบสก็ยังดีใจนะ ที่ครั้งหนึ่งในชีวิต <strong>เบสได้เจอทราย</strong> 🌻</p>
+      </div>
+    </article>
+
+  </main>
+
+  <footer>
+    <div class="wrap">18 สิงหาคม — 28 กันยายน 2026</div>
+  </footer>
+
+  <script>
+    const bar = document.querySelector(".progress");
+    const onScroll = () => {
+      const el = document.documentElement;
+      const max = el.scrollHeight - el.clientHeight;
+      const p = max > 0 ? el.scrollTop / max : 0;
+      bar.style.transform = "scaleX(" + p + ")";
+    };
+    document.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+  </script>
+</body>
+
+</html>
